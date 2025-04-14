@@ -150,7 +150,7 @@ export const shouldTriggerEncounter = (userData: UserData): boolean => {
       ? Date.now() - userData.lastEncounterTimestamp 
       : Infinity;
       
-    if (timeSinceLastEncounter > 60000) { // 1 minute in milliseconds
+    if (timeSinceLastEncounter > 300) { // 1 minute in milliseconds
       return true;
     }
   }

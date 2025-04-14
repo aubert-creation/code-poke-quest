@@ -12,6 +12,7 @@ import Pokedex from './Pokedex';
 import WildEncounter from './WildEncounter';
 import BattleScene from './BattleScene';
 import EvolutionAnimation from './EvolutionAnimation';
+import PokemonSprite from './PokemonSprite';
 
 const PokecodeGame: React.FC = () => {
   // Game state
@@ -48,7 +49,7 @@ const PokecodeGame: React.FC = () => {
       if (shouldTriggerEncounter(updated)) {
         triggerWildEncounter();
       }
-    }, 5000); // Every 5 seconds
+    }, 300); // Every 5 seconds
     
     return () => clearInterval(interval);
   }, [gameState]);
@@ -99,7 +100,7 @@ const PokecodeGame: React.FC = () => {
     const { playerPokemon, wildPokemon, playerHealth, wildHealth, battleLog, turnCount } = battleState;
     let newPlayerHealth = playerHealth;
     let newWildHealth = wildHealth;
-    let newBattleLog = [...battleLog];
+    const newBattleLog = [...battleLog];
     let result: 'WIN' | 'LOSE' | undefined;
     
     // Player attacks first
