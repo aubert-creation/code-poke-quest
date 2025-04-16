@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Pokemon, BattleState } from '@/types/pokemon';
 import PokemonSprite from './PokemonSprite';
@@ -24,8 +23,12 @@ const BattleScene: React.FC<BattleSceneProps> = ({
   const [animation, setAnimation] = useState<string>('');
   const [pokeballAnimation, setPokeballAnimation] = useState<string>('');
   
-  // Calculate catch rate based on remaining HP percentage
-  const catchRateModifier = 1 - (wildHealth / wildPokemon.hp);
+  // Calculate catch rate based on remaining HP percentage AND pokemon level
+  // Lower level pokemon are easier to catch
+  const levelFactor = Math.max(0.2, 1 - (wildPokemon.level / 100)); // Level factor (higher for lower levels)
+  const hpFactor = 1 - (wildHealth / wildPokemon.hp); // HP factor (higher when pokemon has less HP)
+  // Base chance starts higher (0.4) and combines both factors
+  const catchRateModifier = 0.4 + (hpFactor * 0.4) + (levelFactor * 0.4);
   
   // Animation effect when taking actions
   useEffect(() => {
@@ -130,7 +133,7 @@ const BattleScene: React.FC<BattleSceneProps> = ({
                 catchRateModifier > 0.7 ? 'bg-green-500' : 
                 catchRateModifier > 0.4 ? 'bg-yellow-500' : 'bg-red-500'
               }`} 
-              style={{width: `${Math.min(100, catchRateModifier * 100 + 20)}%`}}
+              style={{width: `${Math.min(100, catchRateModifier * 100)}%`}}
             ></div>
           </div>
         </div>

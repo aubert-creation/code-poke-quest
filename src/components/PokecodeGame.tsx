@@ -153,14 +153,18 @@ const PokecodeGame: React.FC = () => {
     const { playerPokemon, wildPokemon, wildHealth, battleLog, turnCount } = battleState;
     const newBattleLog = [...battleLog];
     
-    // Calculate catch probability based on remaining HP percentage
-    // Formula: base 20% + up to 75% based on how much HP is depleted
+    // Calculate catch probability based on remaining HP percentage AND pokemon level
+    // Formula: 
+    // - base chance is higher (40%)
+    // - up to 40% more based on how much HP is depleted
+    // - up to 40% more based on how low the Pokémon's level is
     const hpPercentage = wildHealth / wildPokemon.hp;
-    const catchProbability = 0.2 + ((1 - hpPercentage) * 0.75);
+    const levelFactor = Math.max(0.2, 1 - (wildPokemon.level / 100)); // Higher for lower levels
+    const catchProbability = 0.4 + ((1 - hpPercentage) * 0.4) + (levelFactor * 0.4);
     
     // Random roll for catch success
     const catchRoll = Math.random();
-    let result: 'CAUGHT' | 'WIN' | undefined;
+    let result: 'CAUGHT' | 'ESCAPED' | undefined;
     
     newBattleLog.push(`You threw a Pokéball at ${wildPokemon.name}!`);
     
@@ -192,7 +196,7 @@ const PokecodeGame: React.FC = () => {
       // Check if player's Pokemon fainted
       if (newPlayerHealth <= 0) {
         newBattleLog.push(`${playerPokemon.name} fainted!`);
-        result = 'LOSE';
+        result = 'ESCAPED';
       }
       
       // Update battle state
