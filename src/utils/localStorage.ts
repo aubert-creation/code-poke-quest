@@ -1,4 +1,3 @@
-
 import { UserData, GameState, Pokemon } from '@/types/pokemon';
 
 const STORAGE_KEY = 'pokecode_data';
@@ -120,10 +119,18 @@ export const updateUserLevel = (newLevel: number): UserData => {
 
 export const updateCharacterCount = (count: number): UserData => {
   const userData = loadUserData();
-  const updatedData = {
-    ...userData,
-    characterCount: userData.characterCount + count,
-    lastEncounterTimestamp: userData.lastEncounterTimestamp || Date.now(),
+  
+  // Add XP to active Pokémon when typing (1 XP point per 5 characters)
+  let updatedData = { ...userData };
+  if (userData.activePokemon && count > 0) {
+    const xpGain = Math.max(1, Math.floor(count / 5));
+    updatedData = updatePokemonExperience(userData.activePokemon.id, xpGain);
+  }
+  
+  updatedData = {
+    ...updatedData,
+    characterCount: updatedData.characterCount + count,
+    lastEncounterTimestamp: updatedData.lastEncounterTimestamp || Date.now(),
   };
   
   saveUserData(updatedData);
