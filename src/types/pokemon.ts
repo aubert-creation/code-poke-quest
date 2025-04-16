@@ -44,5 +44,5 @@ export interface BattleState {
   wildHealth: number;
   battleLog: string[];
   turnCount: number;
-  battleResult?: 'WIN' | 'LOSE' | 'FLED';
+  battleResult?: 'WIN' | 'LOSE' | 'FLED' | 'CAUGHT' | 'ESCAPED';
 }

@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -172,6 +172,17 @@ export default {
 					'25%, 75%': {
 						opacity: '0.5'
 					}
+				},
+				"pokemon-shake": {
+					"0%, 100%": { transform: "translateX(0)" },
+					"25%": { transform: "translateX(-5px)" },
+					"50%": { transform: "translateX(5px)" },
+					"75%": { transform: "translateX(-5px)" }
+				},
+				"pokeball-throw": {
+					"0%": { transform: "translateX(-200%) translateY(100%)" },
+					"50%": { transform: "translateX(-100%) translateY(-100%)" },
+					"100%": { transform: "translateX(0) translateY(0)" }
 				}
 			},
 			animation: {
@@ -182,9 +193,13 @@ export default {
 				'pokemon-evolution': 'pokemon-evolution 1.5s ease-in-out',
 				'float': 'float 3s ease-in-out infinite',
 				'battle-shake': 'battle-shake 0.3s ease-in-out 3',
-				'flash': 'flash 0.5s ease-in-out'
+				'flash': 'flash 0.5s ease-in-out',
+				"pokemon-shake": "pokemon-shake 0.5s ease-in-out",
+				"pokeball-throw": "pokeball-throw 0.8s ease-out forwards"
 			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+
+export default config;
