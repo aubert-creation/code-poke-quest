@@ -50,10 +50,17 @@ const StarterSelection: React.FC<StarterSelectionProps> = ({ onSelect }) => {
   }
 
   return (
-    <div className="bg-pokemon-vscode-panel p-6 text-white">
-      <h2 className="text-xl font-bold mb-6 text-center">Choose Your Starter Pokémon</h2>
+    <div 
+      className="bg-cover bg-center p-6 text-white rounded-lg" 
+      style={{ 
+        backgroundImage: "url('/lovable-uploads/3165d50b-3c8f-4be4-bac1-89ab05a20d25.png')",
+        minHeight: "400px",
+        position: "relative"
+      }}
+    >
+      <h2 className="text-2xl font-bold mb-8 text-center text-shadow">Choose Your Starter Pokémon</h2>
       
-      <div className="grid grid-cols-1 gap-6 mb-6">
+      <div className="flex justify-center items-end space-x-4 mb-6">
         {starters.map((pokemon) => {
           const primaryType = pokemon.types[0] || 'normal';
           const bgColor = getPokemonTypeColor(primaryType);
@@ -63,14 +70,14 @@ const StarterSelection: React.FC<StarterSelectionProps> = ({ onSelect }) => {
               key={pokemon.id}
               className={`
                 relative flex flex-col items-center p-4 rounded-lg cursor-pointer transition-all
-                ${selectedId === pokemon.id ? 'ring-2 ring-pokemon-yellow transform scale-102' : 'hover:bg-opacity-30'}
+                ${selectedId === pokemon.id ? 'ring-2 ring-pokemon-yellow transform scale-110' : 'hover:scale-105'}
+                backdrop-blur-sm bg-black/40
               `}
-              style={{ background: `linear-gradient(135deg, ${bgColor}30 0%, #22222280 100%)` }}
               onClick={() => setSelectedId(pokemon.id)}
             >
-              <PokemonSprite pokemon={pokemon} size="lg" className="mb-4" />
+              <PokemonSprite pokemon={pokemon} size="xl" className="mb-4" />
               
-              <h3 className="text-lg font-semibold">{pokemon.name}</h3>
+              <h3 className="text-lg font-semibold capitalize">{pokemon.name}</h3>
               
               <div className="flex space-x-2 mt-2">
                 {pokemon.types.map((type) => (
@@ -86,19 +93,19 @@ const StarterSelection: React.FC<StarterSelectionProps> = ({ onSelect }) => {
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-4 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">HP:</span>
+                  <span className="text-gray-300">HP:</span>
                   <span>{pokemon.hp}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">ATK:</span>
+                  <span className="text-gray-300">ATK:</span>
                   <span>{pokemon.attack}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">DEF:</span>
+                  <span className="text-gray-300">DEF:</span>
                   <span>{pokemon.defense}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">SPD:</span>
+                  <span className="text-gray-300">SPD:</span>
                   <span>{pokemon.speed}</span>
                 </div>
               </div>
@@ -115,7 +122,7 @@ const StarterSelection: React.FC<StarterSelectionProps> = ({ onSelect }) => {
         })}
       </div>
       
-      <div className="text-center">
+      <div className="text-center mt-8">
         <button
           className={`
             py-2 px-8 rounded-md font-medium
@@ -127,7 +134,7 @@ const StarterSelection: React.FC<StarterSelectionProps> = ({ onSelect }) => {
           Choose {selectedId ? starters.find(p => p.id === selectedId)?.name : 'Pokémon'}
         </button>
         
-        <p className="mt-4 text-sm text-gray-400">
+        <p className="mt-4 text-sm text-white bg-black/50 p-2 rounded inline-block">
           Your starter Pokémon will be your companion in your coding journey!
         </p>
       </div>

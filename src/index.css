@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,13 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  .pixelated {
+    image-rendering: pixelated;
+  }
+  
+  .text-shadow {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   }
 }
