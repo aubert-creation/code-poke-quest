@@ -53,7 +53,7 @@ const StarterSelection: React.FC<StarterSelectionProps> = ({ onSelect }) => {
     <div 
       className="bg-cover bg-center p-6 text-white rounded-lg" 
       style={{ 
-        backgroundImage: "url('/lovable-uploads/3165d50b-3c8f-4be4-bac1-89ab05a20d25.png')",
+        backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')",
         minHeight: "400px",
         position: "relative"
       }}
